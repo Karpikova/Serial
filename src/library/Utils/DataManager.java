@@ -48,7 +48,7 @@ public class DataManager {
         }
     }*/
 
-    public static < E > void SrializeToFileGeneric(Collection<? extends E> eObjects) {
+    public static < E > void SrializeToFileGeneric(Collection<E> eObjects) {
         try (FileOutputStream fos = new FileOutputStream("books.txt");
              ObjectOutputStream oos = new ObjectOutputStream(fos)){
             for (E eObj:
@@ -79,7 +79,7 @@ public class DataManager {
             e.printStackTrace();
         }
         finally {
-            return (Set<E>)eObjects;
+            return (Collection<E>)eObjects;
         }
     }
 
