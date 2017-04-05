@@ -1,11 +1,15 @@
 package library.Modules;
 
+import java.io.Externalizable;
+import java.io.IOException;
+import java.io.ObjectInput;
+import java.io.ObjectOutput;
 import java.util.Date;
 
 /**
  * Created by makar on 05.04.2017.
  */
-public class Booking {
+public class Booking{
     private BookInstance bookInstance;
     private Reader reader;
     private Date startDate;
@@ -70,4 +74,5 @@ public class Booking {
         this.startDate = startDate;
         this.finishDate = finishDate;
     }
+
 }

@@ -12,7 +12,7 @@ import java.util.Set;
  */
 public class DataManager {
     //make generic
-    public static void SrializeToFile(Set<Book> books) {
+  /*  public static void SrializeToFile(Set<Book> books) {
         try (FileOutputStream fos = new FileOutputStream("books.txt");
              ObjectOutputStream oos = new ObjectOutputStream(fos)){
             for (Book book:
@@ -45,14 +45,14 @@ public class DataManager {
         finally {
             return books;
         }
-    }
+    }*/
 
-    public static void MySrializeToFile(Set<Booking> bookings) {
+    public static < E > void SrializeToFileGeneric(Set<E> eObjects) {
         try (FileOutputStream fos = new FileOutputStream("books.txt");
              ObjectOutputStream oos = new ObjectOutputStream(fos)){
-            for (Booking booking:
-                    bookings) {
-                oos.writeObject(booking);
+            for (E eObj:
+                    eObjects) {
+                oos.writeObject(eObj);
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -61,14 +61,14 @@ public class DataManager {
         }
     }
 
-    public static Set<Booking> MyDeSrialize() {
-        Set<Booking> bookings = new HashSet<>();
+    public static <E> Set<E> DeSrializeGeneric(E obj) {
+        Set<E> eObjects = new HashSet<>();
         try (FileInputStream fis = new FileInputStream("books.txt");
              ObjectInputStream ois = new ObjectInputStream(fis)){
-            Booking booking;
-            while ((booking = (Booking) ois.readObject())!=null)
+            E eObj;
+            while ((eObj = (E) ois.readObject())!=null)
             {
-                bookings.add(booking);
+                eObjects.add(eObj);
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -78,7 +78,8 @@ public class DataManager {
             e.printStackTrace();
         }
         finally {
-            return bookings;
+            return (Set<E>)eObjects;
         }
     }
+
 }

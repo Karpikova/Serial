@@ -3,9 +3,11 @@ package library.Modules;
 import java.io.Serializable;
 
 /**
- * Created by makar on 05.04.2017.
+ * Created by makar on 05.04.2017. Externalizable
  */
 public class Book implements Serializable{
+    public Book() {
+    }
 
     private String author;
     private String title;
