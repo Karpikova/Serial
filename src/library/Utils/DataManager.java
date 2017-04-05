@@ -4,6 +4,7 @@ import library.Modules.Book;
 import library.Modules.Booking;
 
 import java.io.*;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -47,7 +48,7 @@ public class DataManager {
         }
     }*/
 
-    public static < E > void SrializeToFileGeneric(Set<E> eObjects) {
+    public static < E > void SrializeToFileGeneric(Collection<? extends E> eObjects) {
         try (FileOutputStream fos = new FileOutputStream("books.txt");
              ObjectOutputStream oos = new ObjectOutputStream(fos)){
             for (E eObj:
@@ -61,8 +62,8 @@ public class DataManager {
         }
     }
 
-    public static <E> Set<E> DeSrializeGeneric(E obj) {
-        Set<E> eObjects = new HashSet<>();
+    public static <E> Collection<E> DeSrializeGeneric(Collection<E> eObjects) {
+
         try (FileInputStream fis = new FileInputStream("books.txt");
              ObjectInputStream ois = new ObjectInputStream(fis)){
             E eObj;

@@ -5,16 +5,18 @@ import library.Modules.Book;
 import library.Modules.Reader;
 import library.Utils.DataManager;
 
+import java.util.*;
+
 public class Main {
 
     public static void main(String[] args) {
         Library library = new Library();
-
+        Set<Book> DeSerial = DataManager.DeSrializeGeneric(new HashSet<Book>());
         for (Book book:
-                DataManager.DeSrializeGeneric(new Book())) {
+                DeSerial) {
             library.buyBook(book.getTitle(), book.getAuthor(), book.getIsbn(), 1, book.getYear());
         }
-        library.setCatalog(DataManager.DeSrializeGeneric(new Book()));
+      //  library.setCatalog(DeSerial);
 
         Reader john = new Reader("John", "Connor", "Caiilovish", 10101010101010l);
         Reader sara = new Reader("Sara", "Connor", "Human", 10101010101012l);
