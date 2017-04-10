@@ -17,6 +17,14 @@ public class BookInstance {
     private UUID number;
     private List<Booking> bookingHistory;
 
+    public UUID getNumber() {
+        return number;
+    }
+
+    public List<Booking> getBookingHistory() {
+        return bookingHistory;
+    }
+
     public BookInstance(Book book, UUID number) {
         this.book = book;
         this.number = number;

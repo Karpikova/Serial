@@ -2,6 +2,7 @@ package library.Utils;
 
 import library.Modules.Book;
 import library.Modules.Booking;
+import sun.misc.IOUtils;
 
 import java.io.*;
 import java.util.Collection;
@@ -13,7 +14,7 @@ import java.util.Set;
  */
 public class DataManager {
     //make generic
-  /*  public static void SrializeToFile(Set<Book> books) {
+    public static void SrializeToFile(Set<Book> books) {
         try (FileOutputStream fos = new FileOutputStream("books.txt");
              ObjectOutputStream oos = new ObjectOutputStream(fos)){
             for (Book book:
@@ -27,10 +28,10 @@ public class DataManager {
         }
     }
 
-    public static Set<Book> DeSrialize() {
+    public static Set<Book> DeSrialize(String content) {
         Set<Book> books = new HashSet<>();
-        try (FileInputStream fis = new FileInputStream("books.txt");
-             ObjectInputStream ois = new ObjectInputStream(fis)){
+        try (InputStream is = new ByteArrayInputStream(content.getBytes());
+             ObjectInputStream ois = new ObjectInputStream(is)){
             Book book;
             while ((book = (Book) ois.readObject())!=null)
             {
@@ -46,9 +47,9 @@ public class DataManager {
         finally {
             return books;
         }
-    }*/
+    }
 
-    public static < E > void SrializeToFileGeneric(Collection<E> eObjects) {
+    /*public static < E > void SrializeToFileGeneric(Collection<E> eObjects) {
         try (FileOutputStream fos = new FileOutputStream("books.txt");
              ObjectOutputStream oos = new ObjectOutputStream(fos)){
             for (E eObj:
@@ -75,12 +76,12 @@ public class DataManager {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
-        } catch (ClassNotFoundException e) { 
+        } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
         finally {
             return (Collection<E>)eObjects;
         }
-    }
+    }*/
 
 }

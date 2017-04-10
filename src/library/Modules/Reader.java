@@ -19,6 +19,18 @@ public class Reader {
         return passportNumber;
     }
 
+    public String getFirstname() {
+        return firstname;
+    }
+
+    public String getSecondname() {
+        return secondname;
+    }
+
+    public String getLastname() {
+        return lastname;
+    }
+
     public void setPassportNumber(long passportNumber) {
         this.passportNumber = passportNumber;
     }

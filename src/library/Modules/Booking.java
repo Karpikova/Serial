@@ -15,7 +15,14 @@ public class Booking{
     private Date startDate;
     private Date returnDate;
     private Date finishDate;
-    private static String MySignature = "Maria";
+
+    public Date getStartDate() {
+        return startDate;
+    }
+
+    public Date getFinishDate() {
+        return finishDate;
+    }
 
     @Override
     public int hashCode() {
