@@ -77,6 +77,7 @@ public class Library {
 
     public void returnBook(String firstname, String secondname, String lastname, final long passportNumber, String title) {
         Reader reader = new Reader(firstname, secondname, lastname, passportNumber);
+
         Booking booking = (Booking) bookings.stream().filter((b)->b.getBookInstance().getBook().getTitle().equals(title) &&
                 b.getReader().equals(reader)).toArray()[0];
 

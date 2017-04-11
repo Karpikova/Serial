@@ -49,7 +49,7 @@ public class DataManager {
         }
     }
 
-    /*public static < E > void SrializeToFileGeneric(Collection<E> eObjects) {
+ /*   public static < E > void SrializeToFileGeneric(Collection<E> eObjects) {
         try (FileOutputStream fos = new FileOutputStream("books.txt");
              ObjectOutputStream oos = new ObjectOutputStream(fos)){
             for (E eObj:
@@ -63,7 +63,7 @@ public class DataManager {
         }
     }
 
-    public static <E> Collection<E> DeSrializeGeneric(Collection<E> eObjects) {
+    public static <E> Set<E> DeSrializeGeneric(Collection<E> eObjects) {
 
         try (FileInputStream fis = new FileInputStream("books.txt");
              ObjectInputStream ois = new ObjectInputStream(fis)){
@@ -80,7 +80,7 @@ public class DataManager {
             e.printStackTrace();
         }
         finally {
-            return (Collection<E>)eObjects;
+            return (Set<E>)eObjects;
         }
     }*/
 
