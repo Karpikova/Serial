@@ -15,9 +15,9 @@ public class Main {
     public static void main(String[] args) {
 
         Book book1 = new Book("Bulgacov", "Dog Heart", 1925, "12");
-//        Set<Book> bookset = new HashSet<Book>();
-//        bookset.add(book1);
-//        book1.printXML(bookset);
+        Set<Book> bookset = new HashSet<Book>();
+        bookset.add(book1);
+        book1.printXML(bookset);
 
         BookInstance bookInstance = new BookInstance(book1, UUID.randomUUID());
         Set<BookInstance> bookInstance_set = new HashSet<BookInstance>();
@@ -26,11 +26,8 @@ public class Main {
        // Booking booking = new Booking(bookInstance, new Reader("Elena", "Sergeevna", "Bulgacova", 101010), new Date(), new Date());
 
 
-
-
-
         Library library = new Library();
-       //* Set<Book> DeSerial = DataManager.DeSrializeGeneric(new HashSet<Book>());
+       // Set<Book> DeSerial = DataManager.DeSrializeGeneric(new HashSet<Book>());
        /* for (Book book:
                 DataManager.DeSrialize("books.txt")) {
             library.buyBook(book.getTitle(), book.getAuthor(), book.getIsbn(), 1, book.getYear());
@@ -40,8 +37,8 @@ public class Main {
         Reader john = new Reader("John", "Connor", "Caiilovish", 10101010101010l);
         Reader sara = new Reader("Sara", "Connor", "Human", 10101010101012l);
 
- //       library.buyBook("May", "F", "2", 3, 1990);
-   //     library.buyBook("Pair", "M", "3", 4, 1992);
+        library.buyBook("May", "F", "2", 3, 1990);
+        library.buyBook("Pair", "M", "3", 4, 1992);
 
         library.takeBook("John", "Connor", "Caiilovish", 10101010101010l, "May");
         library.takeBook("John", "Connor", "Caiilovish", 10101010101010l, "Pair");
@@ -50,6 +47,6 @@ public class Main {
 
         library.ShowAllData();
 
-  //    DataManager.SrializeToFileGeneric(library.getCatalog());
+      DataManager.SrializeToFile(library.getCatalog());
     }
 }

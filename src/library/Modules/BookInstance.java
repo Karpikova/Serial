@@ -1,5 +1,6 @@
 package library.Modules;
 
+import library.Utils.DataManager;
 import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -14,10 +15,7 @@ import java.io.File;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * Created by makar on 05.04.2017.
@@ -75,7 +73,6 @@ public class BookInstance {
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
             Document doc = (Document) dBuilder.newDocument();
-            dBuilder = dbFactory.newDocumentBuilder();
 
             Element rootElement = doc.createElement("BooksInstanses");
             doc.appendChild(rootElement);
@@ -85,36 +82,7 @@ public class BookInstance {
                 Element superbook = doc.createElement("BookInstance");
                 rootElement.appendChild(superbook);
 
-                Element methods = doc.createElement("Methods");
-                superbook.appendChild(methods);
-
-                for (Method met :
-                        this.getClass().getMethods()) {
-
-                    Element method = doc.createElement("Method");
-                    methods.appendChild(method);
-
-                    Attr attr = doc.createAttribute("name");
-                    attr.setValue(met.getName());
-                    method.setAttributeNode(attr);
-
-                    attr = doc.createAttribute("return_type");
-                    attr.setValue(met.getReturnType().getName());
-                    method.setAttributeNode(attr);
-
-                    for (Parameter param: met.getParameters()) {
-                        Element m_param = doc.createElement("mParametr");
-                        method.appendChild(m_param);
-
-                        attr = doc.createAttribute("name");
-                        attr.setValue(param.getName());
-                        m_param.setAttributeNode(attr);
-
-                        attr = doc.createAttribute("type");
-                        attr.setValue(param.getType().getName());
-                        m_param.setAttributeNode(attr);
-                    }
-                }
+                DataManager.createXMLMethod(this, doc, superbook);
 
                 Element fields = doc.createElement("Fields");
                 superbook.appendChild(fields);
@@ -137,34 +105,18 @@ public class BookInstance {
                     }
                     field.setAttributeNode(attr);
 
-//                    if (field_el.getName().equals("book")) {
-//                        try {
-//                            field_el.get(this).
-//                        } catch (IllegalAccessException e) {
-//                            e.printStackTrace();
-//                        }
-//                    }
+                    if (field_el.getName().equals("book")) {
+                        try {
+                            Book book = (Book) field_el.get(this);
+                            Book.createXML_just_book(doc, field, book);
+                        } catch (IllegalAccessException e) {
+                            e.printStackTrace();
+                        }
+                    }
                 }
             }
 
-            TransformerFactory transformerFactory = TransformerFactory.newInstance();
-            Transformer transformer = null;
-            try {
-                transformer = transformerFactory.newTransformer();
-                transformer.setOutputProperty(OutputKeys.INDENT, "yes");
-                DOMSource source = new DOMSource(doc);
-                StreamResult result =
-                        new StreamResult(new File("Books.xml"));
-                transformer.transform(source, result);
-                // Output to console for testing
-                StreamResult consoleResult =
-                        new StreamResult(System.out);
-                transformer.transform(source, consoleResult);
-            } catch (TransformerConfigurationException e) {
-                e.printStackTrace();
-            } catch (TransformerException e) {
-                e.printStackTrace();
-            }
+            DataManager.createXMLResult("BookInstance.txt", doc);
 
         } catch (ParserConfigurationException e) {
             e.printStackTrace();

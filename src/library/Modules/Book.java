@@ -6,6 +6,8 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.*;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
+
+import library.Utils.DataManager;
 import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -55,92 +57,51 @@ public class Book implements Serializable{
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
             Document doc = (Document) dBuilder.newDocument();
-            dBuilder = dbFactory.newDocumentBuilder();
 
             Element rootElement = doc.createElement("Books");
             doc.appendChild(rootElement);
 
             for (Book book :
                     books) {
-                Element superbook = doc.createElement("Book");
-                rootElement.appendChild(superbook);
-
-                Element methods = doc.createElement("Methods");
-                superbook.appendChild(methods);
-
-                for (Method met :
-                        this.getClass().getMethods()) {
-
-                    Element method = doc.createElement("Method");
-                    methods.appendChild(method);
-
-                    Attr attr = doc.createAttribute("name");
-                    attr.setValue(met.getName());
-                    method.setAttributeNode(attr);
-
-                    attr = doc.createAttribute("return_type");
-                    attr.setValue(met.getReturnType().getName());
-                    method.setAttributeNode(attr);
-
-                    for (Parameter param: met.getParameters()) {
-                        Element m_param = doc.createElement("mParametr");
-                        method.appendChild(m_param);
-
-                        attr = doc.createAttribute("name");
-                        attr.setValue(param.getName());
-                        m_param.setAttributeNode(attr);
-
-                        attr = doc.createAttribute("type");
-                        attr.setValue(param.getType().getName());
-                        m_param.setAttributeNode(attr);
-                    }
-                }
-
-                Element fields = doc.createElement("Fields");
-                superbook.appendChild(fields);
-
-                for (Field field_el :
-                        this.getClass().getDeclaredFields()) {
-
-                    Element field = doc.createElement("Field");
-                    fields.appendChild(field);
-
-                    Attr attr = doc.createAttribute("name");
-                    attr.setValue(field_el.getName());
-                    field.setAttributeNode(attr);
-
-                    attr = doc.createAttribute("value");
-                    try {
-                        attr.setValue(field_el.get(this).toString());
-                    } catch (IllegalAccessException e) {
-                        e.printStackTrace();
-                    }
-                    field.setAttributeNode(attr);
-                }
+                createXML_just_book(doc, rootElement, book);
             }
 
-            TransformerFactory transformerFactory = TransformerFactory.newInstance();
-            Transformer transformer = null;
-            try {
-                transformer = transformerFactory.newTransformer();
-                transformer.setOutputProperty(OutputKeys.INDENT, "yes");
-                DOMSource source = new DOMSource(doc);
-                StreamResult result =
-                        new StreamResult(new File("Books.xml"));
-                transformer.transform(source, result);
-                // Output to console for testing
-                StreamResult consoleResult =
-                        new StreamResult(System.out);
-                transformer.transform(source, consoleResult);
-            } catch (TransformerConfigurationException e) {
-                e.printStackTrace();
-            } catch (TransformerException e) {
-                e.printStackTrace();
-            }
+            DataManager.createXMLResult("Book.txt", doc);
 
         } catch (ParserConfigurationException e) {
             e.printStackTrace();
         }
+    }
+
+    public static Document createXML_just_book(Document doc, Element prev, Book book) {
+        Element superbook = doc.createElement("Book");
+        prev.appendChild(superbook);
+
+        DataManager.createXMLMethod(book, doc, superbook);
+
+        Element fields = doc.createElement("Fields");
+        superbook.appendChild(fields);
+
+        for (Field field_el :
+                book.getClass().getDeclaredFields()) {
+
+            Element field = doc.createElement("Field");
+            fields.appendChild(field);
+
+            Attr attr = doc.createAttribute("name");
+            attr.setValue(field_el.getName());
+            field.setAttributeNode(attr);
+
+            attr = doc.createAttribute("value");
+            try {
+                attr.setValue(field_el.get(book).toString());
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
+            field.setAttributeNode(attr);
+        }
+
+        return doc;
     }
 
     public String getAuthor() {
