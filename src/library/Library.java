@@ -1,14 +1,22 @@
 package library;
 
 import library.Modules.*;
+import org.apache.log4j.Logger;
+import org.apache.log4j.xml.DOMConfigurator;
+import org.w3c.dom.DOMConfiguration;
 
-import java.lang.reflect.Array;
 import java.util.*;
 
 /**
  * Created by makar on 05.04.2017.
  */
 public class Library {
+
+    static {
+        DOMConfigurator.configure("log4j.xml");
+    }
+
+    private static final Logger LOGGER = Logger.getLogger(Library.class);//куда он залогил???
     private Set<Book> catalog;
     private Set<BookInstance> store;
     private Set<Reader> readers;
@@ -27,6 +35,7 @@ public class Library {
         store = new HashSet<>(4096);
         readers = new HashSet<>(512);
         bookings = new HashSet<>(2048);
+        LOGGER.debug("12");
     }
 
     public Set<Booking> getBookings() {

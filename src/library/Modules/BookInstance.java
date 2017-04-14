@@ -68,53 +68,13 @@ public class BookInstance {
         return book + "@" + number;
     }
 
-    public void printXML(Set<BookInstance> bookInstances) {
+    public void printXML(BookInstance bookInstance) {
         try {
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
             Document doc = (Document) dBuilder.newDocument();
 
-            Element rootElement = doc.createElement("BooksInstanses");
-            doc.appendChild(rootElement);
-
-            for (BookInstance bookinstance :
-                    bookInstances) {
-                Element superbook = doc.createElement("BookInstance");
-                rootElement.appendChild(superbook);
-
-                DataManager.createXMLMethod(this, doc, superbook);
-
-                Element fields = doc.createElement("Fields");
-                superbook.appendChild(fields);
-
-                for (Field field_el :
-                        this.getClass().getDeclaredFields()) {
-
-                    Element field = doc.createElement("Field");
-                    fields.appendChild(field);
-
-                    Attr attr = doc.createAttribute("name");
-                    attr.setValue(field_el.getName());
-                    field.setAttributeNode(attr);
-
-                    attr = doc.createAttribute("value");
-                    try {
-                        attr.setValue(field_el.get(this).toString());
-                    } catch (IllegalAccessException e) {
-                        e.printStackTrace();
-                    }
-                    field.setAttributeNode(attr);
-
-                    if (field_el.getName().equals("book")) {
-                        try {
-                            Book book = (Book) field_el.get(this);
-                            Book.createXML_just_book(doc, field, book);
-                        } catch (IllegalAccessException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }
-            }
+            createXML_just_bookinstance(doc, bookInstance);
 
             DataManager.createXMLResult("BookInstance.txt", doc);
 
@@ -122,4 +82,45 @@ public class BookInstance {
             e.printStackTrace();
         }
     }
+
+    public static Document createXML_just_bookinstance(Document doc, BookInstance bookInstance) {
+        Element rootElement = doc.createElement("BookInstance");
+        doc.appendChild(rootElement);
+
+        DataManager.createXMLMethod(bookInstance, doc, rootElement);
+
+        Element fields = doc.createElement("Fields");
+        rootElement.appendChild(fields);
+
+        for (Field field_el :
+                bookInstance.getClass().getDeclaredFields()) {
+
+            Element field = doc.createElement("Field");
+            fields.appendChild(field);
+
+            Attr attr = doc.createAttribute("name");
+            attr.setValue(field_el.getName());
+            field.setAttributeNode(attr);
+
+            attr = doc.createAttribute("value");
+            try {
+                attr.setValue(field_el.get(bookInstance).toString());
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
+            field.setAttributeNode(attr);
+
+            if (field_el.getName().equals("book")) {
+                try {
+                    Book book = (Book) field_el.get(bookInstance);
+                    Book.createXML_just_book(doc, field, book);
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        return doc;
+    }
+
 }

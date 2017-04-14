@@ -1,28 +1,37 @@
 package com.company;
 
 import library.Library;
-import library.Modules.Book;
-import library.Modules.BookInstance;
-import library.Modules.Booking;
-import library.Modules.Reader;
+import library.Modules.*;
 import library.Utils.DataManager;
+import org.apache.log4j.Logger;
+import org.apache.log4j.PropertyConfigurator;
 
-import javax.xml.transform.TransformerException;
 import java.util.*;
 
 public class Main {
 
+  //  первый логгер
+    static {
+        PropertyConfigurator.configure("log4j.properties");
+    }
+
+    private static final Logger logger =  Logger.getLogger(Main.class);
+
     public static void main(String[] args) {
 
-        Book book1 = new Book("Bulgacov", "Dog Heart", 1925, "12");
-        Set<Book> bookset = new HashSet<Book>();
-        bookset.add(book1);
-        book1.printXML(bookset);
+        logger.debug("Start");
+        if(true) return;
 
-        BookInstance bookInstance = new BookInstance(book1, UUID.randomUUID());
-        Set<BookInstance> bookInstance_set = new HashSet<BookInstance>();
-        bookInstance_set.add(bookInstance);
-        bookInstance.printXML(bookInstance_set);
+        DataBaseManager dataBaseManager = new DataBaseManager();
+        dataBaseManager.delete();
+
+        Book book = new Book("Bulgacov", "Dog Heart", 1925, "12");
+        Set<Book> bookset = new HashSet<Book>();
+        bookset.add(book);
+        book.printXML(bookset);
+
+        BookInstance bookInstance = new BookInstance(book, UUID.randomUUID());
+        bookInstance.printXML(bookInstance);
        // Booking booking = new Booking(bookInstance, new Reader("Elena", "Sergeevna", "Bulgacova", 101010), new Date(), new Date());
 
 
