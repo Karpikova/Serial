@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Books>
+<Book>
+<Methods/>
+<Method name="equals" return_type="boolean">
+<mParametr name="arg0" type="java.lang.Object"/>
+</Method>
+<Method name="toString" return_type="java.lang.String"/>
+<Method name="hashCode" return_type="int"/>
+<Method name="print" return_type="void"/>
+<Method name="printXML" return_type="void">
+<mParametr name="arg0" type="java.util.Set"/>
+</Method>
+<Method name="getYear" return_type="int"/>
+<Method name="setYear" return_type="void">
+<mParametr name="arg0" type="int"/>
+</Method>
+<Method name="getIsbn" return_type="java.lang.String"/>
+<Method name="setTitle" return_type="void">
+<mParametr name="arg0" type="java.lang.String"/>
+</Method>
+<Method name="setIsbn" return_type="void">
+<mParametr name="arg0" type="java.lang.String"/>
+</Method>
+<Method name="getTitle" return_type="java.lang.String"/>
+<Method name="getAuthor" return_type="java.lang.String"/>
+<Method name="setAuthor" return_type="void">
+<mParametr name="arg0" type="java.lang.String"/>
+</Method>
+<Method name="createXML_just_book" return_type="org.w3c.dom.Document">
+<mParametr name="arg0" type="org.w3c.dom.Document"/>
+<mParametr name="arg1" type="org.w3c.dom.Element"/>
+<mParametr name="arg2" type="library.Modules.Book"/>
+</Method>
+<Method name="wait" return_type="void"/>
+<Method name="wait" return_type="void">
+<mParametr name="arg0" type="long"/>
+<mParametr name="arg1" type="int"/>
+</Method>
+<Method name="wait" return_type="void">
+<mParametr name="arg0" type="long"/>
+</Method>
+<Method name="getClass" return_type="java.lang.Class"/>
+<Method name="notify" return_type="void"/>
+<Method name="notifyAll" return_type="void"/>
+<Fields>
+<Field name="author" value="Bulgacov"/>
+<Field name="title" value="Dog Heart"/>
+<Field name="year" value="1925"/>
+<Field name="isbn" value="12"/>
+<Field name="serialVersionUID" value="2"/>
+</Fields>
+</Book>
+</Books>
